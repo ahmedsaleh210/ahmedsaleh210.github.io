@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahmed Saleh — Senior Flutter Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #0c0c0e;
+  --bg2:    #111114;
+  --bg3:    #18181c;
+  --orange: #ff4d00;
+  --orange2:#ff6a2a;
+  --text:   #f0ece4;
+  --muted:  #6b6870;
+  --border: rgba(255,255,255,0.07);
+  --card:   #161618;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+#cur{position:fixed;width:10px;height:10px;background:var(--orange);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:screen}
+#cur.big{width:44px;height:44px;opacity:.25}
+#cur-ring{position:fixed;width:38px;height:38px;border:1.5px solid var(--orange);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 56px;background:rgba(12,12,14,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.05em;color:var(--text)}
+.nav-logo em{color:var(--orange);font-style:normal}
+.nav-links{display:flex;gap:36px;align-items:center}
+.nav-links a{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--muted);transition:color .25s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{padding:10px 24px!important;background:var(--orange);color:#fff!important;border-radius:100px;transition:background .25s!important}
+.nav-cta:hover{background:var(--orange2)!important}
+
+/* HERO */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding:0 56px;padding-top:80px;overflow:hidden;position:relative;background:var(--bg)}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:60px 60px 60px 0;position:relative;z-index:2}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:28px;animation:fadeUp .8s both}
+.hero-eyebrow::before{content:'';width:28px;height:2px;background:var(--orange)}
+.hero-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7.5vw,108px);line-height:1;letter-spacing:.02em;color:var(--text);white-space:nowrap;animation:fadeUp .9s .1s both}
+.hero-name .stroke{-webkit-text-stroke:2.5px rgba(240,236,228,.3);color:transparent}
+.hero-name .dot{color:var(--orange)}
+.hero-sub{margin-top:32px;font-size:15px;font-weight:400;color:var(--muted);max-width:400px;line-height:1.85;animation:fadeUp .9s .22s both}
+.hero-actions{display:flex;gap:12px;margin-top:44px;animation:fadeUp .9s .35s both}
+.btn-fill{padding:14px 32px;background:var(--orange);color:#fff;font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-radius:100px;transition:background .25s,transform .25s;cursor:none}
+.btn-fill:hover{background:var(--orange2);transform:translateY(-2px)}
+.btn-ghost{padding:14px 32px;border:1.5px solid var(--border);color:var(--text);font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-radius:100px;transition:border-color .25s,color .25s,transform .25s;cursor:none}
+.btn-ghost:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:48px;margin-top:64px;padding-top:40px;border-top:1px solid var(--border);animation:fadeUp .9s .48s both}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--text);line-height:1}
+.stat-n span{color:var(--orange)}
+.stat-l{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+/* Hero right panel */
+.hero-right{position:relative;animation:fadeIn 1.2s .3s both}
+.hero-panel{width:100%;height:100%;background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:56px 40px}
+.hero-panel::before{content:'';position:absolute;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(255,77,0,.12) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);animation:breathe 5s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.1)}}
+.avail-pill{position:absolute;top:32px;right:32px;z-index:3;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:8px 14px;border-radius:100px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.08em;text-transform:uppercase;backdrop-filter:blur(8px)}
+.avail-dot{width:7px;height:7px;background:#00e676;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.tech-fl{position:absolute;z-index:3;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(6px);padding:6px 12px;border-radius:8px;font-size:11px;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase}
+.tf1{top:90px;left:24px;animation:fl1 4s ease-in-out infinite}
+.tf2{top:140px;right:20px;animation:fl2 5s ease-in-out infinite}
+.tf3{bottom:130px;left:20px;animation:fl1 6s ease-in-out infinite}
+.tf4{bottom:90px;right:24px;animation:fl2 4.5s ease-in-out infinite}
+@keyframes fl1{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes fl2{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.avatar-wrap{width:170px;height:170px;border-radius:50%;border:2px solid rgba(255,77,0,.4);padding:5px;position:relative;z-index:2;margin-bottom:28px}
+.avatar-inner{width:100%;height:100%;border-radius:50%;background:linear-gradient(135deg,#ff4d00,#ff6a2a,#1a1a1e);display:grid;place-items:center;font-family:'Bebas Neue',sans-serif;font-size:52px;color:#fff;letter-spacing:.02em}
+.panel-name{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--text);letter-spacing:.05em;text-align:center;position:relative;z-index:2}
+.panel-role{font-size:11px;font-weight:500;color:var(--muted);text-align:center;letter-spacing:.1em;text-transform:uppercase;margin-top:6px;position:relative;z-index:2}
+.deco-bg-num{position:absolute;bottom:28px;left:28px;z-index:1;font-family:'Bebas Neue',sans-serif;font-size:110px;line-height:1;color:rgba(255,255,255,.02);user-select:none}
+
+/* MARQUEE */
+.marquee-strip{background:var(--orange);overflow:hidden;padding:14px 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+.marquee-track{display:flex;white-space:nowrap;animation:marquee 22s linear infinite}
+.marquee-item{display:inline-flex;align-items:center;gap:20px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.08em;color:#fff;padding:0 28px}
+.mdot{width:6px;height:6px;background:rgba(255,255,255,.45);border-radius:50%;flex-shrink:0}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTION COMMONS */
+section{padding:100px 56px}
+.sec-label{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:18px}
+.sec-label::after{content:'';width:24px;height:2px;background:var(--orange)}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,5vw,68px);letter-spacing:.02em;line-height:1;color:var(--text)}
+
+/* PROJECTS */
+#projects{background:var(--bg2);padding:100px 56px}
+.proj-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px;flex-wrap:wrap;gap:16px}
+.proj-count{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pcard{background:var(--bg3);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .3s;cursor:none;position:relative}
+.pcard:hover{transform:translateY(-6px);border-color:rgba(255,77,0,.25)}
+.pcard.feat{grid-column:span 2}
+.pthumb{position:relative;overflow:hidden;flex-shrink:0;height:190px;display:flex;align-items:center;justify-content:center}
+.pcard.feat .pthumb{height:256px}
+.tb1{background:linear-gradient(135deg,#0d1117,#1a1040,#0a1828)}
+.tb2{background:linear-gradient(135deg,#0d1117,#1a2e0d,#0d2018)}
+.tb3{background:linear-gradient(135deg,#1a0d0d,#2e1800,#1a0d2e)}
+.tb4{background:linear-gradient(135deg,#0d1a1a,#0d2e2e,#0d1130)}
+.pthumb::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:28px 28px}
+.ticon{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;border-radius:inherit;transition:transform .4s}
+.ticon img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.pcard:hover .ticon{transform:scale(1.05)}
+.thumb-hover-stores{position:absolute;bottom:0;left:0;right:0;z-index:3;display:flex;gap:8px;padding:12px 16px;background:linear-gradient(transparent,rgba(0,0,0,.8));opacity:0;transition:opacity .3s}
+.pcard:hover .thumb-hover-stores{opacity:1}
+.hslink{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:8px;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);font-size:11px;font-weight:600;color:#fff;text-decoration:none;letter-spacing:.04em;transition:background .25s;cursor:none}
+.hslink:hover{background:rgba(255,77,0,.55);border-color:rgba(255,77,0,.4)}
+.pbody{padding:20px 22px 24px;flex:1;display:flex;flex-direction:column}
+.pnum{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:.1em;color:var(--muted);margin-bottom:8px}
+.ptitle{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.03em;color:var(--text);margin-bottom:8px;line-height:1.1}
+.pcard.feat .ptitle{font-size:28px}
+.pdesc{font-size:12px;color:var(--muted);line-height:1.8;flex:1}
+.ptags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.ptag{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:rgba(255,77,0,.1);color:var(--orange);border:1px solid rgba(255,77,0,.2)}
+.pstores{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.sbadge{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;border:1px solid var(--border);font-size:11px;font-weight:600;color:var(--muted);text-decoration:none;transition:border-color .25s,color .25s;cursor:none}
+.sbadge:hover{border-color:var(--orange);color:var(--orange)}
+
+/* CONTACT */
+#contact{background:var(--bg)}
+.contact-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.contact-left .sec-title{margin-bottom:20px}
+.contact-tagline{font-size:16px;color:var(--muted);line-height:1.9;margin-bottom:40px;font-weight:400}
+.citems{display:grid;gap:12px}
+.citem{display:flex;align-items:center;gap:16px;padding:18px 20px;background:var(--bg3);border-radius:14px;border:1.5px solid var(--border);text-decoration:none;color:var(--text);transition:border-color .25s,transform .25s,box-shadow .25s}
+.citem:hover{border-color:var(--orange);transform:translateX(4px);box-shadow:4px 0 0 var(--orange)}
+.ci-icon{font-size:18px;width:42px;height:42px;background:var(--bg2);border-radius:10px;display:grid;place-items:center;flex-shrink:0;border:1px solid var(--border)}
+.ci-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ci-val{font-size:14px;font-weight:600;color:var(--text);margin-top:2px}
+.cform{display:grid;gap:14px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fg label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fg input,.fg textarea{background:var(--bg3);border:1.5px solid var(--border);color:var(--text);font-family:'Manrope',sans-serif;font-size:14px;padding:14px 16px;outline:none;border-radius:12px;transition:border-color .25s;resize:none}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--muted)}
+.fg input:focus,.fg textarea:focus{border-color:var(--orange)}
+.fg textarea{height:110px}
+.fsub{padding:16px;background:var(--orange);color:#fff;border:none;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:100px;cursor:none;transition:background .25s,transform .25s}
+.fsub:hover{background:var(--orange2);transform:translateY(-2px)}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);color:var(--muted);padding:28px 56px;display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:500;letter-spacing:.05em}
+.fl{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--orange);letter-spacing:.06em}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .proj-grid{grid-template-columns:repeat(2,1fr)}
+  .pcard.feat{grid-column:span 2}
+}
+@media(max-width:900px){
+  nav{padding:14px 24px}
+  section{padding:72px 24px}
+  #hero{grid-template-columns:1fr;padding:100px 24px 56px}
+  .hero-right{display:none}
+  .hero-left{padding:0}
+  #projects{padding:72px 24px}
+  .contact-inner{grid-template-columns:1fr;gap:44px}
+  footer{padding:24px;flex-direction:column;gap:10px;text-align:center}
+}
+@media(max-width:640px){
+  nav{padding:12px 16px}
+  .nav-links{gap:12px}
+  section{padding:56px 16px}
+  #projects{padding:56px 16px}
+  .hero-stats{gap:24px;flex-wrap:wrap}
+  .hero-actions{flex-direction:column}
+  .btn-fill,.btn-ghost{text-align:center}
+  .proj-grid{grid-template-columns:1fr;gap:12px}
+  .pcard.feat{grid-column:span 1}
+  .pcard.feat .pthumb{height:190px}
+  .pcard.feat .ptitle{font-size:22px}
+  .form-row{grid-template-columns:1fr}
+  footer{padding:20px 16px;font-size:11px}
+  .thumb-hover-stores{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Ahmed<em>.</em>dev</div>
+  <div class="nav-links">
+    <a href="#projects">Projects</a>
+    <a href="#contact" class="nav-cta">Hire Me</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Senior Flutter Developer</div>
+    <h1 class="hero-name">Ahmed Saleh</h1>
+    <p class="hero-sub">Building high-performance, pixel-perfect mobile apps for iOS & Android. 3+ years · 25+ production apps · Clean Architecture advocate.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-fill">View Projects</a>
+      <a href="#contact" class="btn-ghost">Let's Talk</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-n">3<span>+</span></div><div class="stat-l">Years Exp.</div></div>
+      <div><div class="stat-n">25<span>+</span></div><div class="stat-l">Apps Built</div></div>
+      <div><div class="stat-n">2</div><div class="stat-l">Platforms</div></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-panel">
+      <div class="avail-pill"><span class="avail-dot"></span> Open to Work</div>
+      <span class="tech-fl tf1">Flutter</span>
+      <span class="tech-fl tf2">Dart</span>
+      <span class="tech-fl tf3">Firebase</span>
+      <span class="tech-fl tf4">BLoC</span>
+      <div class="avatar-wrap"><div class="avatar-inner">AS</div></div>
+      <div class="panel-name">Ahmed Saleh</div>
+      <div class="panel-role">Senior Flutter Developer</div>
+      <div class="deco-bg-num">25</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Flutter <span class="mdot"></span></span>
+    <span class="marquee-item">Dart <span class="mdot"></span></span>
+    <span class="marquee-item">BLoC <span class="mdot"></span></span>
+    <span class="marquee-item">Riverpod <span class="mdot"></span></span>
+    <span class="marquee-item">Firebase <span class="mdot"></span></span>
+    <span class="marquee-item">Clean Architecture <span class="mdot"></span></span>
+    <span class="marquee-item">GetX <span class="mdot"></span></span>
+    <span class="marquee-item">iOS & Android <span class="mdot"></span></span>
+    <span class="marquee-item">Flutter <span class="mdot"></span></span>
+    <span class="marquee-item">Dart <span class="mdot"></span></span>
+    <span class="marquee-item">BLoC <span class="mdot"></span></span>
+    <span class="marquee-item">Riverpod <span class="mdot"></span></span>
+    <span class="marquee-item">Firebase <span class="mdot"></span></span>
+    <span class="marquee-item">Clean Architecture <span class="mdot"></span></span>
+    <span class="marquee-item">GetX <span class="mdot"></span></span>
+    <span class="marquee-item">iOS & Android <span class="mdot"></span></span>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="proj-top reveal">
+    <div>
+      <div class="sec-label">Selected Work</div>
+      <h2 class="sec-title">Projects</h2>
+    </div>
+    <div class="proj-count">04 Projects</div>
+  </div>
+
+  <div class="proj-grid">
+
+    <!-- Featured -->
+    <div class="pcard feat reveal">
+      <div class="pthumb tb1">
+        <div class="ticon"><img src="images/project-1.png" alt="FinFlow Banking App"></div>
+        <div class="thumb-hover-stores">
+          <a href="#" class="hslink"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2.07 2.07 0 0 0 2.21-.28l12.19-7.04-2.9-2.9-11.5 10.22zm-1.74-20.5C1.17 3.6 1 4.1 1 4.7v14.6c0 .6.17 1.1.44 1.44l.08.07 8.18-8.18v-.19L1.52 3.19l-.08.07zM20.23 10.6l-2.56-1.48-3.19 3.19 3.19 3.19 2.58-1.49c.74-.43.74-1.99-.02-2.41zM5.39.52a2.07 2.07 0 0 0-2.21-.28l11.5 10.22 2.9-2.9L5.39.52z"/></svg> Google Play</a>
+          <a href="#" class="hslink"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.15 1.26-2.13 3.75.03 2.99 2.62 3.99 2.65 4l.04.01c-.03.08-.41 1.42-1.31 2.86zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg> App Store</a>
+        </div>
+      </div>
+      <div class="pbody">
+        <div class="pnum">01 — Featured</div>
+        <div class="ptitle">FinFlow — Banking App</div>
+        <div class="pdesc">Full-featured personal finance app with real-time expense tracking, budgeting tools, and animated charts. 10k+ downloads on both platforms.</div>
+        <div class="ptags"><span class="ptag">Flutter</span><span class="ptag">BLoC</span><span class="ptag">Firebase</span><span class="ptag">Stripe</span></div>
+        <div class="pstores">
+          <a href="#" class="sbadge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2.07 2.07 0 0 0 2.21-.28l12.19-7.04-2.9-2.9-11.5 10.22zm-1.74-20.5C1.17 3.6 1 4.1 1 4.7v14.6c0 .6.17 1.1.44 1.44l.08.07 8.18-8.18v-.19L1.52 3.19l-.08.07zM20.23 10.6l-2.56-1.48-3.19 3.19 3.19 3.19 2.58-1.49c.74-.43.74-1.99-.02-2.41zM5.39.52a2.07 2.07 0 0 0-2.21-.28l11.5 10.22 2.9-2.9L5.39.52z"/></svg> Google Play</a>
+          <a href="#" class="sbadge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.15 1.26-2.13 3.75.03 2.99 2.62 3.99 2.65 4l.04.01c-.03.08-.41 1.42-1.31 2.86zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg> App Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="pcard reveal">
+      <div class="pthumb tb2">
+        <div class="ticon"><img src="images/project-2.png" alt="PaceTrack Fitness"></div>
+        <div class="thumb-hover-stores">
+          <a href="#" class="hslink"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2.07 2.07 0 0 0 2.21-.28l12.19-7.04-2.9-2.9-11.5 10.22zm-1.74-20.5C1.17 3.6 1 4.1 1 4.7v14.6c0 .6.17 1.1.44 1.44l.08.07 8.18-8.18v-.19L1.52 3.19l-.08.07zM20.23 10.6l-2.56-1.48-3.19 3.19 3.19 3.19 2.58-1.49c.74-.43.74-1.99-.02-2.41zM5.39.52a2.07 2.07 0 0 0-2.21-.28l11.5 10.22 2.9-2.9L5.39.52z"/></svg> Google Play</a>
+          <a href="#" class="hslink"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.15 1.26-2.13 3.75.03 2.99 2.62 3.99 2.65 4l.04.01c-.03.08-.41 1.42-1.31 2.86zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg> App Store</a>
+        </div>
+      </div>
+      <div class="pbody">
+        <div class="pnum">02</div>
+        <div class="ptitle">PaceTrack — Fitness</div>
+        <div class="pdesc">GPS-powered fitness tracker with live route mapping, workout analytics, and social challenges.</div>
+        <div class="ptags"><span class="ptag">Flutter</span><span class="ptag">Riverpod</span><span class="ptag">Maps SDK</span></div>
+        <div class="pstores">
+          <a href="#" class="sbadge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2.07 2.07 0 0 0 2.21-.28l12.19-7.04-2.9-2.9-11.5 10.22zm-1.74-20.5C1.17 3.6 1 4.1 1 4.7v14.6c0 .6.17 1.1.44 1.44l.08.07 8.18-8.18v-.19L1.52 3.19l-.08.07zM20.23 10.6l-2.56-1.48-3.19 3.19 3.19 3.19 2.58-1.49c.74-.43.74-1.99-.02-2.41zM5.39.52a2.07 2.07 0 0 0-2.21-.28l11.5 10.22 2.9-2.9L5.39.52z"/></svg> Google Play</a>
+          <a href="#" class="sbadge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.15 1.26-2.13 3.75.03 2.99 2.62 3.99 2.65 4l.04.01c-.03.08-.41 1.42-1.31 2.86zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg> App Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="pcard reveal">
+      <div class="pthumb tb3">
+        <div class="ticon"><img src="images/project-3.png" alt="Shopify Client App"></div>
+        <div class="thumb-hover-stores">
+          <a href="#" class="hslink"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2.07 2.07 0 0 0 2.21-.28l12.19-7.04-2.9-2.9-11.5 10.22zm-1.74-20.5C1.17 3.6 1 4.1 1 4.7v14.6c0 .6.17 1.1.44 1.44l.08.07 8.18-8.18v-.19L1.52 3.19l-.08.07zM20.23 10.6l-2.56-1.48-3.19 3.19 3.19 3.19 2.58-1.49c.74-.43.74-1.99-.02-2.41zM5.39.52a2.07 2.07 0 0 0-2.21-.28l11.5 10.22 2.9-2.9L5.39.52z"/></svg> Google Play</a>
+          <a href="#" class="hslink"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.15 1.26-2.13 3.75.03 2.99 2.62 3.99 2.65 4l.04.01c-.03.08-.41 1.42-1.31 2.86zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg> App Store</a>
+        </div>
+      </div>
+      <div class="pbody">
+        <div class="pnum">03</div>
+        <div class="ptitle">Shopify Client App</div>
+        <div class="pdesc">E-commerce app with Stripe payment integration, product catalog, cart management, and push notifications.</div>
+        <div class="ptags"><span class="ptag">Flutter</span><span class="ptag">GetX</span><span class="ptag">Stripe</span></div>
+        <div class="pstores">
+          <a href="#" class="sbadge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2.07 2.07 0 0 0 2.21-.28l12.19-7.04-2.9-2.9-11.5 10.22zm-1.74-20.5C1.17 3.6 1 4.1 1 4.7v14.6c0 .6.17 1.1.44 1.44l.08.07 8.18-8.18v-.19L1.52 3.19l-.08.07zM20.23 10.6l-2.56-1.48-3.19 3.19 3.19 3.19 2.58-1.49c.74-.43.74-1.99-.02-2.41zM5.39.52a2.07 2.07 0 0 0-2.21-.28l11.5 10.22 2.9-2.9L5.39.52z"/></svg> Google Play</a>
+          <a href="#" class="sbadge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.15 1.26-2.13 3.75.03 2.99 2.62 3.99 2.65 4l.04.01c-.03.08-.41 1.42-1.31 2.86zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg> App Store</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="pcard reveal">
+      <div class="pthumb tb4">
+        <div class="ticon"><img src="images/project-4.png" alt="LearnLens EdTech"></div>
+        <div class="thumb-hover-stores">
+          <a href="#" class="hslink"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2.07 2.07 0 0 0 2.21-.28l12.19-7.04-2.9-2.9-11.5 10.22zm-1.74-20.5C1.17 3.6 1 4.1 1 4.7v14.6c0 .6.17 1.1.44 1.44l.08.07 8.18-8.18v-.19L1.52 3.19l-.08.07zM20.23 10.6l-2.56-1.48-3.19 3.19 3.19 3.19 2.58-1.49c.74-.43.74-1.99-.02-2.41zM5.39.52a2.07 2.07 0 0 0-2.21-.28l11.5 10.22 2.9-2.9L5.39.52z"/></svg> Google Play</a>
+          <a href="#" class="hslink"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.15 1.26-2.13 3.75.03 2.99 2.62 3.99 2.65 4l.04.01c-.03.08-.41 1.42-1.31 2.86zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg> App Store</a>
+        </div>
+      </div>
+      <div class="pbody">
+        <div class="pnum">04</div>
+        <div class="ptitle">LearnLens — EdTech</div>
+        <div class="pdesc">Interactive learning platform with video lessons, quizzes, and progress tracking. Clean Architecture.</div>
+        <div class="ptags"><span class="ptag">Flutter</span><span class="ptag">BLoC</span><span class="ptag">GraphQL</span></div>
+        <div class="pstores">
+          <a href="#" class="sbadge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2.07 2.07 0 0 0 2.21-.28l12.19-7.04-2.9-2.9-11.5 10.22zm-1.74-20.5C1.17 3.6 1 4.1 1 4.7v14.6c0 .6.17 1.1.44 1.44l.08.07 8.18-8.18v-.19L1.52 3.19l-.08.07zM20.23 10.6l-2.56-1.48-3.19 3.19 3.19 3.19 2.58-1.49c.74-.43.74-1.99-.02-2.41zM5.39.52a2.07 2.07 0 0 0-2.21-.28l11.5 10.22 2.9-2.9L5.39.52z"/></svg> Google Play</a>
+          <a href="#" class="sbadge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.15 1.26-2.13 3.75.03 2.99 2.62 3.99 2.65 4l.04.01c-.03.08-.41 1.42-1.31 2.86zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg> App Store</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left reveal">
+      <div class="sec-label">Get In Touch</div>
+      <h2 class="sec-title">Let's Build<br>Something<br>Great.</h2>
+      <p class="contact-tagline">Have a project in mind or looking for a senior Flutter developer? Open to freelance & full-time opportunities.</p>
+      <div class="citems">
+        <a href="mailto:ahmed@dev.io" class="citem">
+          <div class="ci-icon">✉️</div>
+          <div><div class="ci-label">Email</div><div class="ci-val">ahmed@dev.io</div></div>
+        </a>
+        <a href="https://github.com" class="citem" target="_blank">
+          <div class="ci-icon">🐙</div>
+          <div><div class="ci-label">GitHub</div><div class="ci-val">github.com/ahmedsaleh</div></div>
+        </a>
+        <a href="https://linkedin.com" class="citem" target="_blank">
+          <div class="ci-icon">💼</div>
+          <div><div class="ci-label">LinkedIn</div><div class="ci-val">linkedin.com/in/ahmedsaleh</div></div>
+        </a>
+      </div>
+    </div>
+    <div class="cform reveal">
+      <div class="form-row">
+        <div class="fg"><label>Name</label><input type="text" placeholder="Your name"></div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="you@email.com"></div>
+      </div>
+      <div class="fg"><label>Subject</label><input type="text" placeholder="Project inquiry"></div>
+      <div class="fg"><label>Message</label><textarea placeholder="Tell me about your project…"></textarea></div>
+      <button class="fsub">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fl">Ahmed Saleh</div>
+  <div>© 2024 · Senior Flutter Developer</div>
+</footer>
+
+<script>
+  const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    cur.style.left=mx+'px';cur.style.top=my+'px';
+  });
+  (function loop(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>cur.classList.add('big'));
+    el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
+  });
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+  },{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  window.addEventListener('scroll',()=>{
+    document.querySelector('nav').style.boxShadow=window.scrollY>40?'0 2px 24px rgba(0,0,0,.07)':'none';
+  });
+</script>
+</body>
+</html>
